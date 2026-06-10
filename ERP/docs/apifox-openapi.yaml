@@ -1,0 +1,780 @@
+openapi: 3.0.3
+info:
+  title: ERP Main APIs for Apifox
+  version: "1.0.0"
+  description: |
+    Main APIs extracted from current backend controllers.
+    Authentication: all endpoints require Bearer token except /user/login.
+servers:
+  - url: http://localhost:8090
+tags:
+  - name: User
+  - name: Purchase
+  - name: Sales
+  - name: Warehouse
+  - name: Finance
+paths:
+  /user/login:
+    post:
+      tags: [User]
+      summary: User login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+            example:
+              no: sa1
+              password: "123"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResult"
+              example:
+                code: 200
+                msg: success
+                total: 0
+                data:
+                  user:
+                    id: 1
+                    no: admin
+                    name: 超级管理员
+                    roleId: 0
+                    isValid: Y
+                  menu: []
+                  token: eyJhbGciOiJIUzI1NiJ9.xxx
+  /purchase/listPageC1:
+    post:
+      tags: [Purchase]
+      summary: Purchase orders page query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryPageParamPurchase"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /purchase/detail:
+    get:
+      tags: [Purchase]
+      summary: Purchase order detail
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /purchase/save:
+    post:
+      tags: [Purchase]
+      summary: Create purchase order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurchaseOrderDto"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /purchase/update:
+    post:
+      tags: [Purchase]
+      summary: Update purchase order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurchaseOrderDto"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /purchase/approve:
+    post:
+      tags: [Purchase]
+      summary: Approve purchase order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApproveRequest"
+            example:
+              id: 101
+              operatorId: 1
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /purchase/del:
+    delete:
+      tags: [Purchase]
+      summary: Delete purchase order
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /sales/listPageC1:
+    post:
+      tags: [Sales]
+      summary: Sales orders page query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryPageParamSales"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /sales/detail:
+    get:
+      tags: [Sales]
+      summary: Sales order detail
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /sales/save:
+    post:
+      tags: [Sales]
+      summary: Create sales order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SalesOrderDto"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /sales/update:
+    post:
+      tags: [Sales]
+      summary: Update sales order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SalesOrderDto"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /sales/approve:
+    post:
+      tags: [Sales]
+      summary: Approve sales order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApproveRequest"
+            example:
+              id: 201
+              operatorId: 1
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /sales/del:
+    delete:
+      tags: [Sales]
+      summary: Delete sales order
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/stock/listPageC1:
+    post:
+      tags: [Warehouse]
+      summary: Stock page query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryPageParamWarehouseStock"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/stock/detail:
+    get:
+      tags: [Warehouse]
+      summary: Stock detail
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/stock/save:
+    post:
+      tags: [Warehouse]
+      summary: Create stock item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WarehouseStock"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/stock/update:
+    post:
+      tags: [Warehouse]
+      summary: Update stock item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WarehouseStock"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/inbound:
+    post:
+      tags: [Warehouse]
+      summary: Manual inbound (apply directly to stock)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StockIoRequest"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/inbound/apply:
+    post:
+      tags: [Warehouse]
+      summary: Submit inbound approval flow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StockIoRequest"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/outbound:
+    post:
+      tags: [Warehouse]
+      summary: Manual outbound (apply directly to stock)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StockIoRequest"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/outbound/apply:
+    post:
+      tags: [Warehouse]
+      summary: Submit outbound approval flow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StockIoRequest"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/flow/listPageC1:
+    post:
+      tags: [Warehouse]
+      summary: Warehouse flow page query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryPageParamWarehouseFlow"
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/flow/approve:
+    post:
+      tags: [Warehouse]
+      summary: Approve warehouse flow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApproveRequest"
+            example:
+              id: 301
+              operatorId: 1
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /warehouse/flow/reject:
+    post:
+      tags: [Warehouse]
+      summary: Reject warehouse flow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApproveRequest"
+            example:
+              id: 301
+              operatorId: 1
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+  /finance/profit/summary:
+    post:
+      tags: [Finance]
+      summary: Monthly profit summary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfitSummaryRequest"
+            example:
+              yearMonth: "2026-05"
+              operatorId: 1
+      responses:
+        "200":
+          description: Result wrapper
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Result"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LoginResult:
+      type: object
+      description: Loose response wrapper for login; compatible with both success and failure payloads.
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+          example: success
+        total:
+          type: integer
+          format: int64
+          example: 0
+        data:
+          description: May be object or null depending on business result.
+          example: null
+    Result:
+      type: object
+      description: Loose generic response wrapper for compatibility in Apifox validation.
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+          example: success
+        total:
+          type: integer
+          format: int64
+          example: 0
+        data:
+          description: Generic business payload, shape varies by endpoint and may be null.
+          example: null
+    LoginRequest:
+      type: object
+      properties:
+        no:
+          type: string
+        password:
+          type: string
+      required: [no, password]
+    QueryPageParamPurchase:
+      type: object
+      properties:
+        pageNum:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 20
+        param:
+          type: object
+          properties:
+            keyword:
+              type: string
+            status:
+              type: string
+              enum: [draft, pending, completed, cancelled]
+    QueryPageParamSales:
+      type: object
+      properties:
+        pageNum:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 20
+        param:
+          type: object
+          properties:
+            keyword:
+              type: string
+            status:
+              type: string
+              enum: [draft, pending, completed, cancelled]
+    QueryPageParamWarehouseStock:
+      type: object
+      properties:
+        pageNum:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 20
+        param:
+          type: object
+          properties:
+            keyword:
+              type: string
+    QueryPageParamWarehouseFlow:
+      type: object
+      properties:
+        pageNum:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 20
+        param:
+          type: object
+          properties:
+            productCode:
+              type: string
+            flowType:
+              type: string
+              description: for example pin/pout/in/out
+    ApproveRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        operatorId:
+          type: integer
+      required: [id, operatorId]
+    ProfitSummaryRequest:
+      type: object
+      properties:
+        yearMonth:
+          type: string
+          example: "2026-05"
+        operatorId:
+          type: integer
+      required: [yearMonth, operatorId]
+    PurchaseOrderItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderId:
+          type: integer
+          format: int64
+        lineNo:
+          type: integer
+        productCode:
+          type: string
+        productName:
+          type: string
+        specification:
+          type: string
+        unit:
+          type: string
+        quantity:
+          type: number
+        unitPrice:
+          type: number
+        amount:
+          type: number
+    PurchaseOrderDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderNo:
+          type: string
+        orderDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [draft, pending, completed, cancelled]
+        supplierName:
+          type: string
+        supplierContact:
+          type: string
+        supplierPhone:
+          type: string
+        supplierAddress:
+          type: string
+        totalQuantity:
+          type: number
+        totalAmount:
+          type: number
+        remark:
+          type: string
+        operatorId:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/PurchaseOrderItem"
+      required: [orderNo, orderDate, status, supplierName, supplierAddress, items]
+    SalesOrderItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderId:
+          type: integer
+          format: int64
+        lineNo:
+          type: integer
+        productCode:
+          type: string
+        productName:
+          type: string
+        specification:
+          type: string
+        unit:
+          type: string
+        quantity:
+          type: number
+        unitPrice:
+          type: number
+        amount:
+          type: number
+    SalesOrderDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderNo:
+          type: string
+        orderDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [draft, pending, completed, cancelled]
+        customerName:
+          type: string
+        customerContact:
+          type: string
+        customerPhone:
+          type: string
+        customerAddress:
+          type: string
+        itemCount:
+          type: integer
+        totalQuantity:
+          type: number
+        totalAmount:
+          type: number
+        remark:
+          type: string
+        operatorId:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/SalesOrderItem"
+      required:
+        [orderNo, orderDate, status, customerName, customerContact, customerPhone, customerAddress, items]
+    StockIoRequest:
+      type: object
+      properties:
+        productCode:
+          type: string
+        productName:
+          type: string
+        quantity:
+          type: number
+        unit:
+          type: string
+        bizDate:
+          type: string
+          format: date
+        remark:
+          type: string
+        operatorId:
+          type: integer
+      required: [productCode, productName, quantity]
+    WarehouseStock:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        productCode:
+          type: string
+        productName:
+          type: string
+        specification:
+          type: string
+        unit:
+          type: string
+        quantity:
+          type: number
+        minStock:
+          type: number
+        warehouseLocation:
+          type: string
+        remark:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+security:
+  - bearerAuth: []

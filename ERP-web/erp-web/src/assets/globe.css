@@ -1,0 +1,101 @@
+/* ERP — global design tokens & Element UI polish (Vue 2 + Element UI 2) */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --app-font: "DM Sans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --app-bg: #f0f4f8;
+  --app-surface: #ffffff;
+  --app-text: #0f172a;
+  --app-muted: #64748b;
+  --app-border: #e2e8f0;
+  --app-primary: #4f46e5;
+  --app-primary-hover: #4338ca;
+  --app-sidebar: #0f172a;
+  --app-sidebar-hover: rgba(255, 255, 255, 0.06);
+  --app-accent: #38bdf8;
+  --app-radius: 12px;
+  --app-radius-sm: 8px;
+  --app-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --app-shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.12);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--app-font);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--app-text);
+  background: var(--app-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100%;
+}
+
+/* Element UI — primary & controls */
+.el-button--primary {
+  background-color: var(--app-primary);
+  border-color: var(--app-primary);
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: var(--app-primary-hover);
+  border-color: var(--app-primary-hover);
+}
+
+.el-input__inner {
+  border-radius: var(--app-radius-sm);
+}
+
+.el-select .el-input__inner {
+  border-radius: var(--app-radius-sm);
+}
+
+.el-table {
+  border-radius: var(--app-radius-sm);
+  overflow: hidden;
+}
+
+.el-table th {
+  font-weight: 600;
+}
+
+.el-pagination {
+  margin-top: 16px;
+  padding: 8px 0;
+}
+
+.el-dialog {
+  border-radius: var(--app-radius);
+  overflow: hidden;
+}
+
+.el-dialog__header {
+  border-bottom: 1px solid var(--app-border);
+  padding: 16px 20px;
+}
+
+.el-dialog__body {
+  padding: 20px 24px;
+}
+
+.el-message-box {
+  border-radius: var(--app-radius);
+}
+
+/* Dialog helper class (used with custom-class on el-dialog) */
+.app-dialog .el-dialog__body {
+  padding-top: 8px;
+}
