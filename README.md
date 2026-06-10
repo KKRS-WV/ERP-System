@@ -163,6 +163,6 @@ cd ERP-web/erp-web
 npm run build
 ```
 
-## README 参考
+## 许可证
 
-README 结构参考了若依 RuoYi-Vue、mall 和 vhr 等开源后台管理项目的常见组织方式：先介绍项目定位，再说明功能模块、技术栈、目录结构、启动步骤和接口入口。
+本项目基于 MIT License 开源，详情见 `LICENSE` 文件。
